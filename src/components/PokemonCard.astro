@@ -1,0 +1,109 @@
+---
+import { getTypeBadgeColor, getTypeGradient } from "@utils/pokemon-types";
+interface Props {
+    url: string;
+    name: string;
+    isBig?: boolean;
+    types?: string[];
+    stats?: {
+        hp: number;
+        attack: number;
+        defense: number;
+        speed: number;
+    };
+}
+
+const { url, name, isBig = false, types = [], stats } = Astro.props;
+
+// ejemplo de url: https://pokeapi.co/api/v2/pokemon/1/
+// el -2 es para obtener el id antes del último /
+// types = ['', 'poison', 'water']
+const id = url.split("/").at(-2);
+const imgSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+const primaryType = types[0] || "normal";
+const gradient = getTypeGradient(primaryType);
+---
+
+<a
+    href={`/pokemons/${name}`}
+    class:list={[
+        "pokemon-card group relative overflow-hidden rounded-xl transition-all duration-300",
+        "hover:scale-105 hover:shadow-xl hover:shadow-black/30",
+        `bg-gradient-to-br ${gradient}`,
+        {
+            "p-6 min-w-[280px]": isBig,
+            "p-3": !isBig,
+        },
+    ]}
+>
+    <div
+        class="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-all duration-300 rounded-xl"
+    >
+    </div>
+
+    <div
+        class:list={[
+            "absolute rounded-full bg-white/20",
+            {
+                "-right-10 -bottom-10 w-40 h-40": isBig,
+                "-right-6 -bottom-6 w-24 h-24": !isBig,
+            },
+        ]}
+    >
+    </div>
+
+    <div class="relative z-10 flex flex-col item-center">
+        <span
+            class:list={[
+                "self-end font-bold text-white/70",
+                {
+                    "text-2xl": isBig,
+                    "text-sm": !isBig,
+                },
+            ]}>#{id?.padStart(3, "0")}</span
+        >
+
+        <img
+            src={imgSrc}
+            alt={name}
+            loading="lazy"
+            class:list={[
+                "drop-shadow-lg transition-transform duration-300 group-hover:scale-110",
+                {
+                    "w-48 h-28": isBig,
+                    "w-24 h-24": !isBig,
+                },
+            ]}
+        />
+
+        <h3
+            class:list={[
+                "capitalize font-bold text-white drop-shadow-md mt-2",
+                {
+                    "text-3xl": isBig,
+                    "text-base": !isBig,
+                },
+            ]}
+        >
+            {name}
+        </h3>
+
+        {
+            types.length > 0 && (
+                <div class:list={["flex gap-2 mt-2", { "mt-3": isBig }]}>
+                    {types.map((type) => (
+                        <span
+                            class:list={[
+                                "px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide",
+                                getTypeBadgeColor(type),
+                                { "text-sm px-4 py-1.5": isBig },
+                            ]}
+                        >
+                            {type}
+                        </span>
+                    ))}
+                </div>
+            )
+        }
+    </div>
+</a>
