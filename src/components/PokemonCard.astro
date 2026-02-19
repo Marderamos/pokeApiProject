@@ -25,7 +25,7 @@ const gradient = getTypeGradient(primaryType);
 ---
 
 <a
-    href={`/pokemons/${name}`}
+    href={`/pokemon/${name}`}
     class:list={[
         "pokemon-card group relative overflow-hidden rounded-xl transition-all duration-300",
         "hover:scale-105 hover:shadow-xl hover:shadow-black/30",
@@ -105,5 +105,16 @@ const gradient = getTypeGradient(primaryType);
                 </div>
             )
         }
+
+        {stats && isBig && (
+            <div class="grid grid-col-4 gap-3 mt-4 w-full ">
+                <div></div>
+                
+            </div>
+
+
+
+        )} 
+
     </div>
 </a>
