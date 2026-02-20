@@ -25,7 +25,7 @@ const gradient = getTypeGradient(primaryType);
 ---
 
 <a
-    href={`/pokemon/${name}`}
+    href={`/pokemon/${id}`}
     class:list={[
         "pokemon-card group relative overflow-hidden rounded-xl transition-all duration-300",
         "hover:scale-105 hover:shadow-xl hover:shadow-black/30",
@@ -106,15 +106,39 @@ const gradient = getTypeGradient(primaryType);
             )
         }
 
-        {stats && isBig && (
-            <div class="grid grid-col-4 gap-3 mt-4 w-full ">
-                <div></div>
-                
-            </div>
+        {
+            stats && isBig && (
+                <div class="grid grid-cols-4 gap-3 mt-4 w-full *:flex *:flex-col *:items-center *:bg-white/20 *:rounded-lg *:p-2">
+                    <div>
+                        <span class="text-xs text-white/70 uppercase">HP</span>
+                        <span class="text-lg font-bold text-white">
+                            {stats.hp}
+                        </span>
+                    </div>
 
+                    <div>
+                        <span class="text-xs text-white/70 uppercase">ATK</span>
+                        <span class="text-lg font-bold text-white ">
+                            {stats.attack}
+                        </span>
+                    </div>
 
+                    <div>
+                        <span class="text-xs text-white/70 uppercase">DEF</span>
+                        <span class="text-lg font-bold text-white ">
+                            {stats.defense}
+                        </span>
+                    </div>
 
-        )} 
+                    <div>
+                        <span class="text-xs text-white/70 uppercase">SPD</span>
+                        <span class="text-lg font-bold text-white ">
+                            {stats.speed}
+                        </span>
+                    </div>
 
+                </div>
+            )
+        }
     </div>
 </a>

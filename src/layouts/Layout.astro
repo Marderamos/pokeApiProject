@@ -1,5 +1,6 @@
 --- 
 import "../styles/global.css";
+import {ViewTransitions} from 'astro:transitions'
 ---
 
 <!doctype html>
@@ -11,6 +12,9 @@ import "../styles/global.css";
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro Basics</title>
+
+		<!-- Todo: Checar las view transicion entre las paginas para la siguiente clase y los stats -->
+		<ViewTransitions />
 	</head>
 	<body class="bg-slate-800 text-slate-100 mx-auto">
 		<main>
